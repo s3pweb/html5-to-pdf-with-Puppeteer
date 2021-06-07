@@ -26,8 +26,16 @@
   "dependencies": {
     "delay": "^5.0.0",
     "express": "^4.17.1",
+    "express-swaggerize-ui": "^1.1.0",
+    "openapi-backend": "^4.1.0",
     "pause": "^0.1.0",
     "puppeteer": "^5.5.0",
-    "puppeteer-cluster": "^0.22.0"
+    "puppeteer-cluster": "^0.22.0",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-dist": "^3.50.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "node-fetch": "^2.6.1"
   }
 }

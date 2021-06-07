@@ -1,3 +1,7 @@
+# Generate Test Docs
+*.jpg
+*.pdf
+
 # Logs
 logs
 *.log
