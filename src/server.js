@@ -54,6 +54,8 @@ const swaggerSpec = swaggerJSDoc(options);
 
         const task = async ({ page, data }) => {
 
+            await page.setDefaultNavigationTimeout(15000);
+
             if (data.url) {
                 await page.goto(data.url);
             }
