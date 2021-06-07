@@ -24,7 +24,7 @@ let paramsPdf = {
     html: '<!DOCTYPE html> <html> <body> <h1>First Heading</h1> <p>First paragraph.</p></body> </html>'
 }
 
-fetch("http://localhost:3000/v1/generate", {
+fetch("http://0.0.0.0:3000/v1/generate", {
     "headers": {
         "accept": "*/*",
         "content-type": "application/json"

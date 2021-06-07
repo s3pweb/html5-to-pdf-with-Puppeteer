@@ -37,6 +37,18 @@ const swaggerSpec = swaggerJSDoc(options);
     const cluster = await Cluster.launch({
         concurrency: Cluster.CONCURRENCY_CONTEXT,
         maxConcurrency: 2,
+        puppeteerOptions: {
+            headless: true,
+            executablePath: process.env.PUPPETEER_EXE,
+            args: [
+                // Required for Docker version of Puppeteer
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                // This will write shared memory files into /tmp instead of /dev/shm,
+                // because Docker’s default for /dev/shm is 64MB
+                '--disable-dev-shm-usage'
+            ]
+        },
     });
 
     const generate = (params) => {
@@ -168,7 +180,7 @@ const swaggerSpec = swaggerJSDoc(options);
 
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-    app.listen(3000, function () {
-        console.log('Screenshot server listening on port 3000.');
+    app.listen(80, function () {
+        console.log('HTML5 to image or pdf server listening on port 80.');
     });
 })();
