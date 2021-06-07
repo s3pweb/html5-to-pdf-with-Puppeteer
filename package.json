@@ -1,0 +1,33 @@
+{
+  "name": "html5-to-pdf-with-puppeteer",
+  "version": "1.0.0",
+  "description": "Convert HTML5 page to pdf or image with Puppeteer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sguilly/html5-to-pdf-with-Puppeteer.git"
+  },
+  "keywords": [
+    "html",
+    "html5",
+    "pdf",
+    "image",
+    "puppeteer"
+  ],
+  "author": "Stéphane GUILLY - S3PWEB",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/sguilly/html5-to-pdf-with-Puppeteer/issues"
+  },
+  "homepage": "https://github.com/sguilly/html5-to-pdf-with-Puppeteer#readme",
+  "dependencies": {
+    "delay": "^5.0.0",
+    "express": "^4.17.1",
+    "pause": "^0.1.0",
+    "puppeteer": "^5.5.0",
+    "puppeteer-cluster": "^0.22.0"
+  }
+}
