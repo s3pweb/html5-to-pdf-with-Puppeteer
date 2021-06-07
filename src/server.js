@@ -36,10 +36,9 @@ const swaggerSpec = swaggerJSDoc(options);
 (async () => {
     const cluster = await Cluster.launch({
         concurrency: Cluster.CONCURRENCY_CONTEXT,
-        maxConcurrency: 2,
+        maxConcurrency: 10,
         puppeteerOptions: {
             headless: true,
-            executablePath: process.env.PUPPETEER_EXE,
             args: [
                 // Required for Docker version of Puppeteer
                 '--no-sandbox',
@@ -178,7 +177,7 @@ const swaggerSpec = swaggerJSDoc(options);
         }
     })
 
-    app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
     app.listen(80, function () {
         console.log('HTML5 to image or pdf server listening on port 80.');

@@ -3,12 +3,10 @@ let fs = require('fs')
 
 let paramsImage = {
     format: 'image',
-    html: '<!DOCTYPE html> <html> <body> <h1>First Heading</h1> <p>First paragraph.</p></body> </html>'
+    html: fs.readFileSync('test.html').toString()
 }
 
-
-
-fetch("http://localhost:3000/v1/generate", {
+fetch("http://0.0.0.0:3000/v1/generate", {
     "headers": {
         "accept": "*/*",
         "content-type": "application/json"
@@ -19,9 +17,12 @@ fetch("http://localhost:3000/v1/generate", {
     const dest = fs.createWriteStream('./image.jpg');
     res.body.pipe(dest);
 });
+
+
 let paramsPdf = {
     format: 'pdf',
-    html: '<!DOCTYPE html> <html> <body> <h1>First Heading</h1> <p>First paragraph.</p></body> </html>'
+    html: fs.readFileSync('test.html').toString(),
+    waitFor: 'firstParagrap'
 }
 
 fetch("http://0.0.0.0:3000/v1/generate", {
