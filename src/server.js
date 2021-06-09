@@ -1,7 +1,7 @@
 const express = require('express'), bodyParser = require('body-parser');
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb', extended: true }));
 
 const { Cluster } = require('puppeteer-cluster');
 const delay = require('delay');
@@ -55,6 +55,7 @@ const swaggerSpec = swaggerJSDoc(options);
         const task = async ({ page, data }) => {
 
             await page.setDefaultNavigationTimeout(15000);
+            await page.emulateTimezone('Europe/Paris')
 
             if (data.url) {
                 await page.goto(data.url);
@@ -72,7 +73,15 @@ const swaggerSpec = swaggerJSDoc(options);
             let buffer, contentType
             switch (data.format) {
                 case 'pdf':
-                    buffer = await page.pdf({ format: 'A4' });
+                    buffer = await page.pdf({
+                        format: 'A4',
+                        margin: { top: 30, right: 30, bottom: 60, left: 30 },
+                        displayHeaderFooter: true,
+                        headerTemplate: '<div></div>',
+                        footerTemplate: `<div style="width: 100%; font-size: 9px;
+                        padding: 5px 5px 0; color: black; position: relative;">
+                        <div style="position: absolute; right: 50%; bottom: 15px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div></div>`
+                    });
                     contentType = 'application/pdf'
                     break;
 
