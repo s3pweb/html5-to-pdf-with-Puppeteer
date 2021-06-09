@@ -52,9 +52,9 @@ const swaggerSpec = swaggerJSDoc(options);
 
     cluster.on('taskerror', (err, data, willRetry) => {
         if (willRetry) {
-          console.warn(`Encountered an error while crawling ${data}. ${err.message}\nThis job will be retried`);
+            console.warn(`Encountered an error while crawling ${data}. ${err.message}\nThis job will be retried`);
         } else {
-          console.error(`Failed to crawl ${data}: ${err.message}`);
+            console.error(`Failed to crawl ${data}: ${err.message}`);
         }
     });
 
@@ -69,7 +69,7 @@ const swaggerSpec = swaggerJSDoc(options);
                 await page.goto(data.url);
             }
             else if (data.html) {
-                await page.setContent(data.html)
+                await page.setContent(data.html, { "waitUntil": "networkidle0" });
             } else {
                 return { code: 400 }
             }
@@ -77,6 +77,21 @@ const swaggerSpec = swaggerJSDoc(options);
             if (data.waitFor) {
                 await page.waitForSelector('#' + data.waitFor, { visible: true })
             }
+            // wait all img
+            await page.evaluate(async () => {
+                const selectors = Array.from(document.querySelectorAll("img"));
+                await Promise.all(selectors.map(img => {
+                    if (img.complete) return;
+                    return new Promise((resolve, reject) => {
+                        img.addEventListener('load', resolve);
+                        img.addEventListener('error', reject);
+                    });
+                }));
+            })
+            // size for screenshot
+            const bodyWidth = await page.evaluate(() => document.body.scrollWidth);
+            const bodyHeight = await page.evaluate(() => document.body.scrollHeight);
+            await page.setViewport({ width: bodyWidth, height: bodyHeight });
 
             let buffer, contentType
             switch (data.format) {
