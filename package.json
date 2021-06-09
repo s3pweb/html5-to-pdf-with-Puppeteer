@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "docker.build": "docker build . -t s3pweb/html5-to-pdf-with-puppeteer",
+    "docker.push": "docker push s3pweb/html5-to-pdf-with-puppeteer",
     "docker.run": "docker run -p 3000:80 s3pweb/html5-to-pdf-with-puppeteer",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
