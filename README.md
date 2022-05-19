@@ -24,7 +24,7 @@ let start = async () => {
   let htmlWithJson = Mustache.render(html, { params: json });
 
   let paramsImage = {
-    format: "image",
+    format: "pdf",
     html: htmlWithJson,
     waitFor: "dynamic-form",
   };
@@ -37,7 +37,7 @@ let start = async () => {
     body: JSON.stringify(paramsImage),
     method: "POST",
   }).then((res) => {
-    const dest = fs.createWriteStream(__dirname + "/output.jpg");
+    const dest = fs.createWriteStream(__dirname + "/output.pdf");
     res.body.pipe(dest);
 
     res.body.on("end", () => console.log("it worked"));
