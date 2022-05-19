@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/sguilly/stencil-formly/dist/stencil-formly/stencil-formly.esm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+  </head>
+
+  <body>
+      <div class='page'>
+          <h1>PAGE 1</h1>   
+          <dynamic-form id="dynamic-form"></dynamic-form>
+      </div>
+      <div class='page'>
+        <h1>PAGE 2</h1>   
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div>
+
+    <script>
+
+      let params = JSON.parse(`{{{params}}}`)
+
+        let df = document.querySelector('dynamic-form');
+        df.model = params.model;
+        df.fields = params.fields;
+
+        df.options = {}
+
+        df.addEventListener('event', e => {
+            console.log('e=', e.detail);
+        });
+
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+            labels: ["Group 1", "Group 2", "Group 3"],
+            datasets: [
+                {
+                label: "Groups",
+                data: [12, 19, 3],
+                },
+            ],
+            },
+        });
+    </script>
+</html>
+
+<style type="text/css" media="print">
+  .page {
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+</style>

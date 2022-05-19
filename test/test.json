@@ -1,0 +1,24 @@
+{
+  "model": {
+    "firstName": "Stéphane",
+    "lastName": "GUILLY 2"
+  },
+  "fields": [
+    {
+      "key": "firstName",
+      "type": "input",
+      "templateOptions": {
+        "label": "Prénom",
+        "required": true
+      }
+    },
+    {
+      "key": "lastName",
+      "type": "input",
+      "templateOptions": {
+        "label": "Nom",
+        "required": true
+      }
+    }
+  ]
+}
