@@ -4,14 +4,14 @@ let Mustache = require("mustache");
 
 let start = async () => {
   let html = fs.readFileSync(__dirname + "/test.html").toString();
-  let json = fs.readFileSync(__dirname + "/test.json").toString();
+  let data = fs.readFileSync(__dirname + "/test.json").toString();
 
-  let htmlWithJson = Mustache.render(html, { params: json });
+  let htmlWithJson = Mustache.render(html, { params: data });
 
   let paramsImage = {
     format: "pdf",
     html: htmlWithJson,
-    waitFor: "dynamic-form",
+    waitFor: "dynamic-form", // <- OPTIONAL
   };
 
   fetch("http://0.0.0.0:80/v1/generate", {

@@ -15,11 +15,17 @@ node test/test-pdf.js
 ```js
 let fetch = require("node-fetch");
 let fs = require("fs");
+let Mustache = require("mustache");
 
 let start = async () => {
+  let html = fs.readFileSync(__dirname + "/test.html").toString();
+  let json = fs.readFileSync(__dirname + "/test.json").toString();
+
+  let htmlWithJson = Mustache.render(html, { params: json });
+
   let paramsImage = {
-    format: "pdf",
-    html: fs.readFileSync(__dirname + "/test.html").toString(),
+    format: "image",
+    html: htmlWithJson,
     waitFor: "dynamic-form",
   };
 
@@ -31,7 +37,7 @@ let start = async () => {
     body: JSON.stringify(paramsImage),
     method: "POST",
   }).then((res) => {
-    const dest = fs.createWriteStream(__dirname + "/output.pdf");
+    const dest = fs.createWriteStream(__dirname + "/output.jpg");
     res.body.pipe(dest);
 
     res.body.on("end", () => console.log("it worked"));
@@ -47,8 +53,10 @@ node test/test-image.js
 ## DOCKER MODE
 
 docker build . -t html5-to-pdf-with-puppeteer
-docker run -p 15001:80 html5-to-pdf-with-puppeteer
+docker run -p 80:80 html5-to-pdf-with-puppeteer
 
-swagger : http://localhost:15001/swagger
+swagger : http://localhost:80/swagger
+
+test : node test/test-image.js
 
 ##

@@ -1,4 +1,4 @@
-FROM buildkite/puppeteer:latest
+FROM buildkite/puppeteer:10.0.0
 
 WORKDIR /usr/src/app
 
@@ -9,7 +9,6 @@ RUN npm install
 COPY index.js ./
 
 COPY src ./src
-
 
 COPY . .
 

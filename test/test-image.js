@@ -1,10 +1,16 @@
 let fetch = require("node-fetch");
 let fs = require("fs");
+let Mustache = require("mustache");
 
 let start = async () => {
+  let html = fs.readFileSync(__dirname + "/test.html").toString();
+  let json = fs.readFileSync(__dirname + "/test.json").toString();
+
+  let htmlWithJson = Mustache.render(html, { params: json });
+
   let paramsImage = {
     format: "image",
-    html: fs.readFileSync(__dirname + "/test.html").toString(),
+    html: htmlWithJson,
     waitFor: "dynamic-form",
   };
 
