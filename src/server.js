@@ -97,13 +97,21 @@ const swaggerSpec = swaggerJSDoc(options);
       const bodyHeight = await page.evaluate(() => document.body.scrollHeight);
       await page.setViewport({ width: bodyWidth, height: bodyHeight });
 
+      // Default to true
+      data.pageNumber = data.pageNumber ?? true;
+      // Default to false
+      data.printBackground = data.printBackground ?? false;
+
       let buffer, contentType;
       switch (data.format) {
         case "pdf":
           buffer = await page.pdf({
             format: "A4",
-            margin: { top: 30, right: 30, bottom: 60, left: 30 },
-            displayHeaderFooter: true,
+            printBackground: data.printBackground,
+            margin: data.pageNumber
+              ? { top: 30, right: 30, bottom: 60, left: 30 }
+              : {},
+            displayHeaderFooter: data.pageNumber,
             headerTemplate: "<div></div>",
             footerTemplate: `<div style="width: 100%; font-size: 9px;
                         padding: 5px 5px 0; color: black; position: relative;">
