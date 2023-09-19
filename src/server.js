@@ -97,6 +97,11 @@ const swaggerSpec = swaggerJSDoc(options);
       const bodyHeight = await page.evaluate(() => document.body.scrollHeight);
       await page.setViewport({ width: bodyWidth, height: bodyHeight });
 
+      // Default to true
+      data.pageNumber = data.pageNumber ?? true;
+      // Default to false
+      data.printBackground = data.printBackground ?? false;
+
       let buffer, contentType;
       switch (data.format) {
         case "pdf":
