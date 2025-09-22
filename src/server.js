@@ -7,7 +7,6 @@ const app = express();
 app.use(bodyParser.json({ limit: "50mb", extended: true }));
 
 const { Cluster } = require("puppeteer-cluster");
-const delay = require("delay");
 
 const version = "v1";
 
